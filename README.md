@@ -172,4 +172,6 @@ Palo only supports Linux System. Oracle JDK 8.0+ and GCC 4.8.2+ are required. Se
 See the [Tutorial](./docs/user_guide/tutorial.md) and [SQL Reference](./docs/user_guide/sql_reference.md)
 
 # Contact us
-palo-rd@baidu.com （需要加入Palo技术讨论微信群的，请邮件中留下微信号）
+palo-rd@baidu.com
+
+需要加入Palo微信技术讨论群的，请加微信号：ruyue_ma，然后备注一下：加入Palo技术讨论群
