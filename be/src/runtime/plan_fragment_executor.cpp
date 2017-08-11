@@ -525,6 +525,7 @@ void PlanFragmentExecutor::close() {
         return;
     }
 
+    _mem_tracker->release(_mem_tracker->consumption());
     _row_batch.reset(NULL);
 
     // Prepare may not have been called, which sets _runtime_state
