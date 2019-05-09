@@ -1,7 +1,7 @@
 # BROKER LOAD
 ## description
 
-    Broker load 通过随 Palo 集群一同部署的 broker 进行，访问对应数据源的数据，进行数据导入。
+    Broker load 通过随 Doris 集群一同部署的 broker 进行，访问对应数据源的数据，进行数据导入。
     不同的数据源需要部署不同的 broker 进程。可以通过 show broker 命令查看已经部署的 broker。
     目前支持以下4种数据源：
 
@@ -104,7 +104,7 @@
 
     3. broker_name
 
-        所使用的 broker 名称，可以通过 show broker 命令查看。不同的数据源需使用对应的 broker。
+        所使用的 broker 名称，可以通过 show broker; 命令查看。不同的数据源需使用对应的 broker。
 
     4. broker_properties
 
@@ -153,7 +153,7 @@
         可以指定如下参数：
         timeout：         指定导入操作的超时时间。默认超时为4小时。单位秒。
         max_filter_ratio：最大容忍可过滤（数据不规范等原因）的数据比例。默认零容忍。
-        exec_mem_limit:   设置导入使用的内存上限。默认为2G，单位字节。这里是指单个 BE 节点的内存上限。
+        exec_mem_limit:   设置导入使用的内存上限。默认为2GB，单位字节。这里是指单个 BE 节点的内存上限。
                           一个导入可能分布于多个BE。我们假设 1GB 数据在单个节点处理需要最大5GB内存。那么假设1GB文件分布在2个节点处理，那么理论上，每个节点需要内存为2.5GB。则该参数可以设置为 2684354560，即2.5GB
 
     5. 导入数据格式样例
@@ -167,7 +167,7 @@
 
 ## example
 
-    1. 从 HDFS 导入一批数据，指定超时时间和过滤比例。使用铭文 my_hdfs_broker 的 broker。简单认证。
+    1. 从 HDFS 导入一批数据，指定超时时间和过滤比例。使用明文 my_hdfs_broker 的 broker。简单认证。
 
         LOAD LABEL example_db.label1
         (
@@ -230,7 +230,7 @@
         "dfs.namenode.rpc-address.my_ha.my_namenode1" = "nn1_host:rpc_port",
         "dfs.namenode.rpc-address.my_ha.my_namenode2" = "nn2_host:rpc_port",
         "dfs.client.failover.proxy.provider" = "org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider"
-        )
+        );
     
     4. 从 HDFS 导入一批“负”数据。同时使用 kerberos 认证方式。提供 keytab 文件路径。
 
@@ -246,7 +246,7 @@
         "hadoop.security.authentication" = "kerberos",
         "kerberos_principal"="doris@YOUR.COM",
         "kerberos_keytab"="/home/palo/palo.keytab"
-        )
+        );
 
     5. 从 HDFS 导入一批数据，指定分区。同时使用 kerberos 认证方式。提供 base64 编码后的 keytab 文件内容。
 
@@ -263,7 +263,7 @@
         "hadoop.security.authentication"="kerberos",
         "kerberos_principal"="doris@YOUR.COM",
         "kerberos_keytab_content"="BQIAAABEAAEACUJBSURVLkNPTQAEcGFsbw"
-        )
+        );
 
     6. 从 BOS 导入一批数据，指定分区, 并对导入文件的列做一些转化，如下：
        表结构为：
@@ -311,7 +311,7 @@
         "bos_endpoint" = "http://bj.bcebos.com",
         "bos_accesskey" = "xxxxxxxxxxxxxxxxxxxxxxxxxx",
         "bos_secret_accesskey"="yyyyyyyyyyyyyyyyyyyy"
-        )
+        );
     
     7. 导入数据到含有HLL列的表，可以是表中的列或者数据里面的列
 
@@ -360,7 +360,7 @@
          (
          PARTITION p1 VALUES LESS THAN ("2014-01-01"),
          PARTITION p2 VALUES LESS THAN ("2014-06-01")
-       )
+       );
 
        导入语句可以写成：
 
